@@ -1,15 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { routing, appRoutingProviders } from './app.routes';
+import { UserService } from './services/user.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
-  providers: [appRoutingProviders],
+  imports: [RouterOutlet, RouterLink, HttpClientModule],
+  providers: [appRoutingProviders, UserService, HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit, DoCheck {
   title = 'blog-angular';
+  public identity :any;
+  public token :any;
+
+  constructor(
+    public _userService: UserService
+  ) {
+    this.loadUser();
+  }
+
+  ngOnInit(): void {
+    console.log("Cargado correctamente");
+  }
+
+  ngDoCheck(): void {
+    this.loadUser();
+  }
+
+  loadUser() {
+    this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
+  }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../../services/user.service';
 import { RouterLink } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class RegisterComponent {
     private _userService: UserService
   ) {
     this.page_title = 'Regístrate';
-    this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
+    this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '', '');
   }
 
   ngOnInit() {

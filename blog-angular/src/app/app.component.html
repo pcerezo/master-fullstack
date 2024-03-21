@@ -20,30 +20,34 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav mr-right">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['/newEntry']">Crear entrada</a>
-            <a class="dropdown-item" [routerLink]="['/newCategory']">Crear categoría</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['/profile']">Mi perfil</a>
-            <a class="dropdown-item" [routerLink]="['/settings']">Ajustes</a>
-            <a class="dropdown-item" [routerLink]="['/logout']">Cerrar sesión</a>
-          </div>
-        </li>
-      </ul>
+      @if (identity && identity.name) {
+        <ul class="navbar-nav mr-right">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ identity.name }}
+              </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/newEntry']">Crear entrada</a>
+              <a class="dropdown-item" [routerLink]="['/newCategory']">Crear categoría</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/perfil']">Mi perfil</a>
+              <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
+              <a class="dropdown-item" [routerLink]="['/logout/1']">Cerrar sesión</a>
+            </div>
+          </li>
+        </ul>
+      }
 
-      <ul class="navbar-nav mr-right">
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/login']">Login <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['/registro']">Registro <span class="sr-only">(current)</span></a>
-        </li>
-      </ul>
+      @if (!identity) {
+        <ul class="navbar-nav mr-right">
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/login']">Login <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/registro']">Registro <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      }
     </div>
   </nav>
 
