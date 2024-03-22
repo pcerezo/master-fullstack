@@ -108,9 +108,11 @@ class UserController extends Controller
             $pwd = hash('sha256', $params_array['password']);
             // Devolver token o datos
             if (!empty($params_array['gettoken'])) {
+                // Se devuelven los datos
                 $signup = $jwtAuth->signup($params_array['email'], $pwd, true);
             }
             else {
+                // Se devuelve el token
                 $signup = $jwtAuth->signup($params_array['email'], $pwd);
             }
         }

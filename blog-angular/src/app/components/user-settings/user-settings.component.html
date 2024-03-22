@@ -2,16 +2,16 @@
     <h1>{{page_title}}</h1>
     @if (status == 'success') {
         <div class="alert alert-success col-md-5">
-            El registro se ha completado correctamente, <a [routerLink]="['/login']">Loguéate aquí</a>
+            Ajustes editados con éxito, <a [routerLink]="['/inicio']">Inicio</a>
         </div>
     }
     @if (status == 'error') {
         <div class="alert alert-danger col-md-5">
-            El registro no se ha completado correctamente.
+            Error en la edición de usuario.
         </div>
     }
     <!-- Formulario de registro-->
-    <form class="col-md-5 ml-0 pl-0" #userSettings="ngForm" (ngSubmit)="onSubmit(userSettings)">
+    <form class="col-md-5 ml-0 pl-0" #userSettings="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="nombreInput">Nombre</label>
             <input id="nombreInput" type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" required
@@ -47,14 +47,12 @@
 
         <div class="form-group">
             <label for="descripcionInput">Biografía</label>
-            <input id="descripcionInput" type="text" name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description" 
-                required pattern="[a-zA-Z ]{2,64}">
+            <input id="descripcionInput" type="text" name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description">
         </div>
 
         <div class="form-group">
             <label for="imagenInput">Avatar</label>
-            <input id="imagenInput" type="file" name="image" class="form-control" #image="ngModel" [(ngModel)]="user.image" 
-                required pattern="[a-zA-Z ]{2,64}">
+            <input id="imagenInput" type="file" name="image" class="form-control" #image="ngModel" [(ngModel)]="user.image">
         </div>
 
         <input type="submit" value="Guardar cambios" class="btn btn-success" [disabled]="userSettings.invalid">

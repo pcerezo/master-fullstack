@@ -26,7 +26,7 @@ export class LoginComponent {
     private _route: ActivatedRoute
   ) {
     this.page_title = 'Identifícate';
-    this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '', '');
+    this.user = new User(1, '', '', 'ROLE_USER', '', '', '', '');
     this.status = 'success';
     this.token = '';
     this.identity = this.user;

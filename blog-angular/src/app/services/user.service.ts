@@ -7,7 +7,7 @@ import { User } from "../models/user";
 @Injectable()
 export class UserService {
     public url: string;
-    public identity: string | null;
+    public identity: any;
     public token: string | null;
 
     constructor(
@@ -30,7 +30,7 @@ export class UserService {
         return this._http.post(this.url+'register', params, {headers: headers});
     }
 
-    login(user: User, gettoken: any = null): Observable<any> {
+    login(user: any, gettoken: any = null): Observable<any> {
         if (gettoken != null) {
             user.gettoken = 'true';
         }
@@ -68,6 +68,15 @@ export class UserService {
     }
 
     getBlankUser(): User {
-        return new User(1, '', '', 'ROLE_USER', '', '', '', '', '');
+        return new User(1, '', '', 'ROLE_USER', '', '', '', '');
+    }
+
+    update(token: string, user: User): Observable<any> {
+        let json = JSON.stringify(user);
+        let params = "json="+json;
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+            .set('Authorization', token);
+
+        return this._http.put(this.url + 'user/update', params, {headers: headers});
     }
 }
