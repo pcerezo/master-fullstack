@@ -3,11 +3,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { routing, appRoutingProviders } from './app.routes';
 import { UserService } from './services/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, HttpClientModule],
+  imports: [RouterOutlet, RouterLink, HttpClientModule, FroalaEditorModule, FroalaViewModule],
   providers: [appRoutingProviders, UserService, HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

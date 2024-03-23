@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @Component({
   selector: 'app-user-settings',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, FormsModule, FroalaEditorModule, FroalaViewModule],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.css',
   providers : [UserService]
@@ -18,6 +19,13 @@ export class UserSettingsComponent {
   public user: User;
   public identity: any;
   public token: any;
+  public froala_options: Object = {
+    charCounterCount: true,
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+  };
 
   constructor(
     private _userService: UserService
@@ -43,8 +51,29 @@ export class UserSettingsComponent {
   onSubmit() {
     this._userService.update(this.token, this.user).subscribe(
       response => {
-        if (response.status == 'success') {
+        if (response && response.status == 'success') {
           this.status = response.status;
+
+          if (response.changes.name) {
+            this.user.name = response.changes.name;
+          }
+
+          if (response.changes.surname) {
+            this.user.surname = response.changes.surname;
+          }
+
+          if (response.changes.email) {
+            this.user.email = response.changes.email;
+          }
+
+          if (response.changes.description) {
+            this.user.description = response.changes.description;
+          }
+
+          if (response.changes.image) {
+            this.user.image = response.changes.image;
+          }
+
           this.identity = this.user;
           localStorage.setItem('identity', JSON.stringify(this.identity));
         }
