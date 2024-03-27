@@ -79,4 +79,14 @@ export class UserService {
 
         return this._http.put(this.url + 'user/update', params, {headers: headers});
     }
+
+    uploadUserImage(file: File, token: string): Observable<any> {
+        let headers = new HttpHeaders().set('Authorization', token);
+        const formData = new FormData();
+
+        formData.append("file0", file, file.name);
+        console.log("Filename: " + file.name);
+
+        return this._http.post(this.url + "user/upload", formData, {headers: headers});
+    }
 }

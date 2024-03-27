@@ -5,9 +5,19 @@
             Ajustes editados con éxito, <a [routerLink]="['/inicio']">Inicio</a>
         </div>
     }
+    @if (status == 'successFoto') {
+        <div class="alert alert-success col-md-5">
+            Foto de perfil actualizada con éxito, <a [routerLink]="['/inicio']">Inicio</a>
+        </div>
+    }
     @if (status == 'error') {
         <div class="alert alert-danger col-md-5">
             Error en la edición de usuario.
+        </div>
+    }
+    @if (status == 'errorFoto') {
+        <div class="alert alert-danger col-md-5">
+            Error al cambiar la foto de perfil.
         </div>
     }
     <!-- Formulario de registro-->
@@ -47,15 +57,32 @@
 
         <div class="form-group">
             <label for="descripcionInput">Biografía</label>
-            <textarea [froalaEditor]="froala_options" id="descripcionInput" type="text" name="description" class="form-control" #description="ngModel" 
-                [(ngModel)]="user.description"></textarea>
+            <textarea [froalaEditor]="froala_options" id="descripcionInput" type="text" name="description" class="form-control" 
+                [(froalaModel)]="user.description"></textarea>
         </div>
 
         <div class="form-group">
-            <label for="imagenInput">Avatar</label>
-            <input id="imagenInput" type="file" name="image" class="form-control" #image="ngModel" [(ngModel)]="user.image">
+            <!--<label for="imagenInput">Avatar</label>-->
+            <input id="imagenInput" type="file" name="image" class="file-input" #fileUpload
+                (change)="onFileSelected($event)">
         </div>
 
-        <input type="submit" value="Guardar cambios" class="btn btn-success" [disabled]="userSettings.invalid">
+        <div class="file-upload">
+            <label>Avatar</label>
+            {{fileName || "Ninguna foto seleccionada"}}
+            @if (identity && identity.image) {
+                <img src="{{url + 'user/avatar/' + identity.image}}">
+            }
+             <button mat-mini-fab color="primary" class="btn upload-btn"
+               (click)="fileUpload.click()">
+                 <i>Cambiar foto de perfil</i>
+             </button>
+         </div>
+
+        
+
+        <!-- <input type="file" class="file-upload" onchange="console.log(event.target.files)"> -->
+
+        <input type="submit" value="Guardar" class="btn btn-success" [disabled]="userSettings.invalid">
     </form>
 </div>

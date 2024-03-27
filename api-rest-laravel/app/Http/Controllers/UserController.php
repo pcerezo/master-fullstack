@@ -127,8 +127,8 @@ class UserController extends Controller
         $checkToken = $jwtAuth->checkToken($token);
         
         // Recoger los datos por post
-            $json = $request->input('json', null);
-            $params_array = json_decode($json, true);
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
         
         if ($checkToken && !empty($params_array)) {
             // Sacar usuario identificado
@@ -174,10 +174,21 @@ class UserController extends Controller
     public function upload(Request $request) {
         // Recoger datos de la petición
         $image = $request->file('file0');
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
+        $checkToken = $jwtAuth->checkToken($token);
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+        $user = null;
+
+        if ($checkToken) {
+            // Sacar usuario identificado
+            $user = $jwtAuth->checkToken($token, true);
+        }
 
         // Validación de imagen
         $validator = \Validator::make($request->all(), [
-            'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+            'file0' => 'required|image|mimes:jpg,JPG,jpeg,jpe,png,gif,jfif,webp'
         ]);
         
         // Guardar imagen
@@ -191,11 +202,17 @@ class UserController extends Controller
         else {
             $image_name = time().$image->getClientOriginalName();
             \Storage::disk('users')->put($image_name, \File::get($image));
+
+            if ($user) {
+                $params_array['image'] = $image_name;
+                $user_update = User::where('id', $user->sub)->update($params_array);
+            }
             
             $data = array(
                 'code' => 200,
                 'status' => 'success',
-                'image' => $image_name
+                'image' => $image_name,
+                'message' => $user->name
             );
         }
         

@@ -4,6 +4,8 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { global } from '../../services/global';
 
 @Component({
   selector: 'app-user-settings',
@@ -19,6 +21,7 @@ export class UserSettingsComponent {
   public user: User;
   public identity: any;
   public token: any;
+  public url: string;
   public froala_options: Object = {
     charCounterCount: true,
     toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
@@ -26,14 +29,17 @@ export class UserSettingsComponent {
     toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
   };
+  public fileName;
 
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
   ) {
     this.page_title = 'Ajustes de usuario';
     this.user = this._userService.getBlankUser();
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.url = global.url;
+
 
     // Se rellena el usuario
     this.user = new User(
@@ -45,6 +51,8 @@ export class UserSettingsComponent {
       this.identity.description,
       this.identity.image,
     );
+
+    this.fileName = '';
     console.log(this.user);
   }
 
@@ -87,5 +95,32 @@ export class UserSettingsComponent {
         console.log(error);
       }
     );
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    console.log("file: " + file);
+    if (file) {
+      this._userService.uploadUserImage(file, this.token).subscribe(
+        response => {
+          if (response && response.status == 'success') {
+            this.status = "successFoto";
+            this.user.image = response.image;
+            this.fileName = response.image;
+            this.identity = this.user;
+            localStorage.setItem('identity', JSON.stringify(this.identity));
+          }
+          else {
+            this.status = 'errorFoto';
+          }
+          console.log("Respuesta: " + response.image);
+        },
+        error => {
+          this.status = 'errorFoto';
+          console.error("Error: " + error);
+        }
+      );
+    }
   }
 }

@@ -4,6 +4,7 @@ import { routing, appRoutingProviders } from './app.routes';
 import { UserService } from './services/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
 
 @Component({
   selector: 'app-root',
