@@ -5,6 +5,7 @@ import { UserService } from './services/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { global } from './services/global';
 
 @Component({
   selector: 'app-root',
@@ -18,11 +19,13 @@ export class AppComponent implements OnInit, DoCheck {
   title = 'blog-angular';
   public identity :any;
   public token :any;
+  public url: string;
 
   constructor(
     public _userService: UserService
   ) {
     this.loadUser();
+    this.url = global.url;
   }
 
   ngOnInit(): void {

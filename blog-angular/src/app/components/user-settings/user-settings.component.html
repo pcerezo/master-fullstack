@@ -71,7 +71,7 @@
             <label>Avatar</label>
             {{fileName || "Ninguna foto seleccionada"}}
             @if (identity && identity.image) {
-                <img src="{{url + 'user/avatar/' + identity.image}}">
+                <img src="{{url + 'user/avatar/' + identity.image}}" class="avatar_edit">
             }
              <button mat-mini-fab color="primary" class="btn upload-btn"
                (click)="fileUpload.click()">

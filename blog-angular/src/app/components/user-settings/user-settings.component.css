@@ -1,3 +1,8 @@
 .file-input {
     display: none;
 }
+
+.avatar_edit {
+    width: 80px;
+    margin: 10px;
+}
