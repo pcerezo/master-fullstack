@@ -6,12 +6,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { global } from './services/global';
+import { CategoryService } from './services/category.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, RouterLink, HttpClientModule, FroalaEditorModule, FroalaViewModule],
-  providers: [appRoutingProviders, UserService, HttpClient],
+  providers: [appRoutingProviders, UserService, HttpClient, CategoryService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -20,16 +21,18 @@ export class AppComponent implements OnInit, DoCheck {
   public identity :any;
   public token :any;
   public url: string;
+  public categories : any;
 
   constructor(
-    public _userService: UserService
+    private _userService: UserService,
+    private _categoryService: CategoryService
   ) {
     this.loadUser();
     this.url = global.url;
   }
 
   ngOnInit(): void {
-    console.log("Cargado correctamente");
+    //console.log("Cargado correctamente");
   }
 
   ngDoCheck(): void {

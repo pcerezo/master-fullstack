@@ -156,7 +156,7 @@ class UserController extends Controller
                 'status' => 'success',
                 'code' => 200,
                 'message' => 'Usuario identificado correctamente',
-                'old user' => $user,
+                'old_user' => $user,
                 'changes' => $params_array
             );
         }
@@ -164,7 +164,7 @@ class UserController extends Controller
             $data = array(
                 'status' => 'error',
                 'code' => 404,
-                'message' => 'El usuario no se ha posido identificar'
+                'message' => 'El usuario no se ha podido identificar'
             );
         }
         
@@ -203,16 +203,17 @@ class UserController extends Controller
             $image_name = time().$image->getClientOriginalName();
             \Storage::disk('users')->put($image_name, \File::get($image));
 
-            if ($user) {
-                $params_array['image'] = $image_name;
-                $user_update = User::where('id', $user->sub)->update($params_array);
-            }
+            // Se actualiza en el usuario el nombre del archivo de su foto de perfil
+            //if ($user) {
+            //    $params_array['image'] = $image_name;
+            //    $user_update = User::where('id', $user->sub)->update($params_array);
+            //}
             
             $data = array(
                 'code' => 200,
                 'status' => 'success',
                 'image' => $image_name,
-                'message' => $user->name
+                //'message' => $user->name
             );
         }
         

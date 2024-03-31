@@ -4,7 +4,6 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { global } from '../../services/global';
 
 @Component({
@@ -57,6 +56,7 @@ export class UserSettingsComponent {
   }
 
   onSubmit() {
+    console.log("Imagen que se sube: " + this.fileName);
     this._userService.update(this.token, this.user).subscribe(
       response => {
         if (response && response.status == 'success') {
@@ -109,7 +109,7 @@ export class UserSettingsComponent {
             this.user.image = response.image;
             this.fileName = response.image;
             this.identity = this.user;
-            localStorage.setItem('identity', JSON.stringify(this.identity));
+            //localStorage.setItem('identity', JSON.stringify(this.identity));
           }
           else {
             this.status = 'errorFoto';

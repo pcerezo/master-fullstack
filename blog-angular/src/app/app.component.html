@@ -16,7 +16,7 @@
           <a class="nav-link" [routerLink]="['/inicio']">Inicio <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/categories']">Categorías</a>
+          <a class="nav-link" [routerLink]="['/lista-categorias']">Categorías</a>
         </li>
       </ul>
 
@@ -34,8 +34,8 @@
               {{ identity.name }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" [routerLink]="['/newEntry']">Crear entrada</a>
-              <a class="dropdown-item" [routerLink]="['/newCategory']">Crear categoría</a>
+              <a class="dropdown-item" [routerLink]="['/crear-post']">Crear entrada</a>
+              <a class="dropdown-item" [routerLink]="['/crear-categoria']">Crear categoría</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" [routerLink]="['/perfil']">Mi perfil</a>
               <a class="dropdown-item" [routerLink]="['/ajustes']">Ajustes</a>
@@ -59,4 +59,10 @@
   </nav>
 
   <router-outlet></router-outlet>
+
+  <footer>
+    <hr>
+    Desarrollando aplicación web con Angular y PHP &copy;.
+    <hr>
+  </footer>
 </div>

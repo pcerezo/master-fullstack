@@ -1,88 +1,86 @@
-<div class="col-md-12 mt-5">
-    <h1>{{page_title}}</h1>
-    @if (status == 'success') {
-        <div class="alert alert-success col-md-5">
-            Ajustes editados con éxito, <a [routerLink]="['/inicio']">Inicio</a>
-        </div>
-    }
-    @if (status == 'successFoto') {
-        <div class="alert alert-success col-md-5">
-            Foto de perfil actualizada con éxito, <a [routerLink]="['/inicio']">Inicio</a>
-        </div>
-    }
-    @if (status == 'error') {
-        <div class="alert alert-danger col-md-5">
-            Error en la edición de usuario.
-        </div>
-    }
-    @if (status == 'errorFoto') {
-        <div class="alert alert-danger col-md-5">
-            Error al cambiar la foto de perfil.
-        </div>
-    }
-    <!-- Formulario de registro-->
-    <form class="col-md-5 ml-0 pl-0" #userSettings="ngForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="nombreInput">Nombre</label>
-            <input id="nombreInput" type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" required
-                pattern="[a-zA-Z]+">
-            @if (!name.valid && name.touched) {
-                <small class="invalid-feedback d-block">
-                    El nombre no es válido
-                </small>
-            }
-        </div>
+<div class="row justify-content-center">
+    <div class="col-md-7 mt-5">
+        <h1>{{page_title}}</h1>
+        @if (status == 'success') {
+            <div class="alert alert-success col-md-5">
+                Ajustes editados con éxito, <a [routerLink]="['/inicio']">Inicio</a>
+            </div>
+        }
+        @if (status == 'successFoto') {
+            <div class="alert alert-success col-md-5">
+                Foto de perfil cargada con éxito.
+            </div>
+        }
+        @if (status == 'error') {
+            <div class="alert alert-danger col-md-5">
+                Error en la edición de usuario.
+            </div>
+        }
+        @if (status == 'errorFoto') {
+            <div class="alert alert-danger col-md-5">
+                Error al cargar la foto de perfil.
+            </div>
+        }
+        <!-- Formulario de registro-->
+        <form class="col-md-10 ml-0 pl-0" #userSettings="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="nombreInput">Nombre</label>
+                <input id="nombreInput" type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" required
+                    pattern="[a-zA-Z]+">
+                @if (!name.valid && name.touched) {
+                    <small class="invalid-feedback d-block">
+                        El nombre no es válido
+                    </small>
+                }
+            </div>
 
-        <div class="form-group">
-            <label for="apellidosInput">Apellidos</label>
-            <input id="apellidosInput" type="text" name="surname" class="form-control" #surname="ngModel" [(ngModel)]="user.surname" 
-                required pattern="[a-zA-Z ]{2,64}">
-            @if (!surname.valid && surname.touched) {
-                <small class="invalid-feedback d-block">
-                    Los apellidos no son válidos
-                </small>
-            }
-        </div>
+            <div class="form-group">
+                <label for="apellidosInput">Apellidos</label>
+                <input id="apellidosInput" type="text" name="surname" class="form-control" #surname="ngModel" [(ngModel)]="user.surname" 
+                    required pattern="[a-zA-Z ]{2,64}">
+                @if (!surname.valid && surname.touched) {
+                    <small class="invalid-feedback d-block">
+                        Los apellidos no son válidos
+                    </small>
+                }
+            </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input id="emailInput" type="text" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email"
-                required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-            @if (!email.valid && email.touched) {
-                <small class="invalid-feedback d-block">
-                    El email no es válido
-                </small>
-            }
-        </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="emailInput" type="text" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email"
+                    required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                @if (!email.valid && email.touched) {
+                    <small class="invalid-feedback d-block">
+                        El email no es válido
+                    </small>
+                }
+            </div>
 
-        <div class="form-group">
-            <label for="descripcionInput">Biografía</label>
-            <textarea [froalaEditor]="froala_options" id="descripcionInput" type="text" name="description" class="form-control" 
-                [(froalaModel)]="user.description"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="descripcionInput">Biografía</label>
+                <textarea [froalaEditor]="froala_options" id="descripcionInput" type="text" name="description" class="form-control" 
+                    [(froalaModel)]="user.description"></textarea>
+            </div>
 
-        <div class="form-group">
-            <!--<label for="imagenInput">Avatar</label>-->
-            <input id="imagenInput" type="file" name="image" class="file-input" #fileUpload
-                (change)="onFileSelected($event)">
-        </div>
+            <div class="form-group">
+                <!--<label for="imagenInput">Avatar</label>-->
+                <input id="imagenInput" type="file" class="file-input" name="image" #fileUpload #image="ngModel" [(ngModel)]="user.image"
+                    (change)="onFileSelected($event)">
+            </div>
 
-        <div class="file-upload">
-            <label>Avatar</label>
-            {{fileName || "Ninguna foto seleccionada"}}
-            @if (identity && identity.image) {
-                <img src="{{url + 'user/avatar/' + identity.image}}" class="avatar_edit">
-            }
-             <button mat-mini-fab color="primary" class="btn upload-btn"
-               (click)="fileUpload.click()">
-                 <i>Cambiar foto de perfil</i>
-             </button>
-         </div>
+            <div class="form-group">
+                <label>Cambiar avatar</label><br>
+                {{fileName || "Ninguna foto seleccionada"}}
+                @if (identity && identity.image) {
+                    <img src="{{url + 'user/avatar/' + fileName}}" class="avatar_edit">
+                }
+                <button mat-mini-fab color="primary" class="btn upload-btn"
+                (click)="fileUpload.click()">
+                    <i>Cambiar foto de perfil</i>
+                </button>
+            </div>
 
-        
-
-        <!-- <input type="file" class="file-upload" onchange="console.log(event.target.files)"> -->
-
-        <input type="submit" value="Guardar" class="btn btn-success" [disabled]="userSettings.invalid">
-    </form>
+            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="userSettings.invalid">
+        </form>
+    </div>
 </div>

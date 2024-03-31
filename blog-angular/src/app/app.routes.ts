@@ -5,6 +5,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { ErrorComponent } from './components/error/error.component';
 import { ModuleWithProviders } from '@angular/core';
 import { UserSettingsComponent } from './components/user-settings/user-settings.component';
+import { CategoryNewComponent } from './components/category-new/category-new.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { PostNewComponent } from './components/post-new/post-new.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -13,6 +16,10 @@ export const routes: Routes = [
     { path: "registro", component: RegisterComponent },
     { path: "logout/:sure", component: LoginComponent},
     { path: "ajustes", component: UserSettingsComponent},
+    { path: "crear-categoria", component: CategoryNewComponent},
+    { path: "lista-categorias", component: CategoryListComponent},
+    //{ path: "categoria/{id}", component: CategoryDetailsComponent},
+    { path: "crear-post", component: PostNewComponent},
     { path: "**", component: ErrorComponent }
 ];
 

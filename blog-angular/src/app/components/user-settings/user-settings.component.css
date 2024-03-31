@@ -6,3 +6,15 @@
     width: 80px;
     margin: 10px;
 }
+
+label {
+    font-weight: bold;
+}
+
+.divider {
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: rgb(199, 198, 198);
+}

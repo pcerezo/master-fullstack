@@ -1,0 +1,13 @@
+<div class="col-md-12 mt-5 text-center">
+    <h1>{{page_title}}</h1>
+    
+    <div class="row justify-content-center">
+        <ul class="list-group col-md-6">
+        @for (category of categories; track $index) {
+            <li class="list-group-item list-group-item-action">
+                <a class="nav-link">{{ category.name }}</a>
+            </li>
+        }
+        </ul>
+    </div>
+</div>
