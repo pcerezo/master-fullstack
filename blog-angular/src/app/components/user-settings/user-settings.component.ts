@@ -118,7 +118,7 @@ export class UserSettingsComponent {
         },
         error => {
           this.status = 'errorFoto';
-          console.error("Error: " + error);
+          //console.error("Error: " + error);
         }
       );
     }
