@@ -35,6 +35,15 @@
                     </small>
                 }
             </div>
+
+            <div class="form-group">
+                <label for="categorySelect">Categorías</label>
+                <select id="categorySelect" class="form-control" name="category_id" #category="ngModel" [(ngModel)]="post.category_id">
+                    @for (category of categories; track $index) {
+                        <option value="{{category.id}}">{{category.name}}</option>
+                    }
+                </select>
+            </div>
         </form>
     </div>
 </div>

@@ -6,6 +6,7 @@ import { Post } from '../../models/post';
 import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
 import { FroalaEditorModule } from 'angular-froala-wysiwyg';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-post-new',
@@ -21,6 +22,7 @@ export class PostNewComponent {
   public token;
   public post: Post;
   public status: any;
+  public categories: any;
   public froala_options: Object = {
     charCounterCount: true,
     toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
@@ -38,10 +40,26 @@ export class PostNewComponent {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.post = new Post(1, this.identity.id, 1, '', '', '');
+    this.categories = [];
   }
 
   ngOnInit() {
+    this.getCategories();
     //console.log(this.post);
+  }
+
+  getCategories() {
+    this._categoryService.getCategories().subscribe(
+      response => {
+        if (response.status == 'success') {
+          this.categories = response.categories;
+          console.log("categorías: " + JSON.stringify(this.categories));
+        }
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   onSubmit() {}
