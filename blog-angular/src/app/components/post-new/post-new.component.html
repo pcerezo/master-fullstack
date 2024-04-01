@@ -44,6 +44,29 @@
                     }
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Imagen del artículo</label><br>
+                {{fileName || "Ninguna imagen seleccionada"}}
+                @if (fileName) {
+                    <img src="{{url + 'post/image/' + fileName}}" class="avatar_edit">
+                }
+                @else {
+                    <img src="{{url + 'user/image/' + post.image}}" class="avatar_edit">
+                }
+                <button mat-mini-fab color="primary" class="btn upload-btn"
+                (click)="filePostUpload.click()">
+                    <i>Selecciona imagen del artículo</i>
+                </button>
+            </div>
+
+            <div class="form-group">
+                <!--<label for="imagenInput">Avatar</label>-->
+                <input id="imagenInput" type="file" class="file-input" #filePostUpload #image="ngModel" [(ngModel)]="post.image"
+                    (change)="onFilePostSelected($event)">
+            </div>
+
+            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="postNew.invalid">
         </form>
     </div>
 </div>

@@ -11,7 +11,7 @@ import { Category } from '../../models/category';
 })
 export class CategoryListComponent {
   public page_title: string;
-  public categories: Array<Category>;
+  public categories: Array<Category> = [];
 
   constructor(
     private _categoryService: CategoryService
@@ -25,7 +25,7 @@ export class CategoryListComponent {
   }
 
   getCategories() {
-    this._categoryService.getCategories().subscribe(
+    /*this._categoryService.getCategories().subscribe(
       response => {
         if (response.status == 'success') {
           this.categories = response.categories;
@@ -35,6 +35,14 @@ export class CategoryListComponent {
       error => {
         console.error(error);
       }
-    );
+    );*/
+    this._categoryService.getCategories().subscribe((response) => {
+      if (response.status == 'success') {
+        this.categories = response.categories;
+      }
+      else {
+        this.categories = [];
+      }
+    });
   }
 }

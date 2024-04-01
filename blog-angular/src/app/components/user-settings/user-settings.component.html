@@ -64,7 +64,7 @@
 
             <div class="form-group">
                 <!--<label for="imagenInput">Avatar</label>-->
-                <input id="imagenInput" type="file" class="file-input" #fileUpload #image="ngModel" [(ngModel)]="user.image"
+                <input id="imagenInput" type="file" name="image" class="file-input" #fileUpload #image="ngModel" [(ngModel)]="user.image"
                     (change)="onFileSelected($event)">
             </div>
 

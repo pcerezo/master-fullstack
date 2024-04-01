@@ -7,6 +7,8 @@ import { User } from '../../models/user';
 import { FormsModule } from '@angular/forms';
 import { FroalaEditorModule } from 'angular-froala-wysiwyg';
 import { Category } from '../../models/category';
+import { global } from '../../services/global';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post-new',
@@ -14,12 +16,14 @@ import { Category } from '../../models/category';
   imports: [FormsModule, RouterLink, FroalaEditorModule],
   templateUrl: './post-new.component.html',
   styleUrl: './post-new.component.css',
-  providers: [UserService, CategoryService]
+  providers: [UserService, CategoryService, PostService]
 })
 export class PostNewComponent {
   public page_title: string;
+  public fileName: string;
+  public url: string;
   public identity: User;
-  public token;
+  public token: any;
   public post: Post;
   public status: any;
   public categories: any;
@@ -34,9 +38,12 @@ export class PostNewComponent {
   constructor(
     private _userService: UserService,
     private _categoryService: CategoryService,
+    private _postService: PostService,
     private _router: Router
   ) {
     this.page_title = "Crear nueva entrada";
+    this.fileName = "";
+    this.url = global.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.post = new Post(1, this.identity.id, 1, '', '', '');
@@ -62,5 +69,64 @@ export class PostNewComponent {
     );
   }
 
-  onSubmit() {}
+  onFilePostSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this._postService.uploadPostImage(file, this.token).subscribe(
+        response => {
+          console.log("RESPONSE: " + response.status);
+          if (response && response.status == 'success') {
+            this.status = "successFoto";
+            this.post.image = response.image;
+            this.fileName = response.image;
+            console.log("Nombre de la imagen: " + response.image);
+            //localStorage.setItem('identity', JSON.stringify(this.identity));
+          }
+          else {
+            this.status = 'errorFoto';
+          }
+          console.log("Respuesta: " + response.image);
+        }
+      );
+    }
+  }
+
+  onSubmit() {
+    console.log("Imagen que se sube: " + this.fileName);
+    this._postService.update(this.token, this.post).subscribe(
+      response => {
+        if (response && response.status == 'success') {
+          this.status = response.status;
+
+          if (response.changes.title) {
+            this.post.title = response.changes.title;
+          }
+
+          if (response.changes.content) {
+            this.post.content = response.changes.content;
+          }
+
+          if (response.changes.category_id) {
+            this.post.category_id = response.changes.category_id;
+          }
+
+          if (response.changes.image) {
+            this.post.image = response.changes.image;
+          }
+
+          //localStorage.setItem('identity', JSON.stringify(this.identity));
+        }
+        else {
+          this.status = 'error';
+          console.log(response.messages);
+        }
+        console.log("Status de guardado: " + response.status);
+      },
+      error => {
+        this.status = 'error';
+        console.log(error);
+      }
+    );
+  }
 }
