@@ -25,12 +25,18 @@ export class PostService {
         return this._http.post(this.url + "post/upload", formData, {headers: headers});
     }
 
-    update(token: string, post: Post): Observable<any> {
+    create(token: string, post: Post): Observable<any> {
         let json = JSON.stringify(post);
         let params = "json="+json;
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
             .set('Authorization', token);
 
         return this._http.post(this.url + 'post', params, {headers: headers});
+    }
+
+    getPosts(): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url + "post", {headers: headers});
     }
 }

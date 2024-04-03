@@ -93,29 +93,12 @@ export class PostNewComponent {
   }
 
   onSubmit() {
+    console.log(this.post);
     console.log("Imagen que se sube: " + this.fileName);
-    this._postService.update(this.token, this.post).subscribe(
+    this._postService.create(this.token, this.post).subscribe(
       response => {
         if (response && response.status == 'success') {
           this.status = response.status;
-
-          if (response.changes.title) {
-            this.post.title = response.changes.title;
-          }
-
-          if (response.changes.content) {
-            this.post.content = response.changes.content;
-          }
-
-          if (response.changes.category_id) {
-            this.post.category_id = response.changes.category_id;
-          }
-
-          if (response.changes.image) {
-            this.post.image = response.changes.image;
-          }
-
-          //localStorage.setItem('identity', JSON.stringify(this.identity));
         }
         else {
           this.status = 'error';
