@@ -5,14 +5,43 @@
 }
 
 @if (listaPosts) {
-<div class="row justify-content-center">
-    <div class="col-md-6 mt-5">
-        <h1>{{page_title}}</h1>
+<div class="container-fluid mt-3">
+    <h1>{{page_title}}</h1>
+    <hr>
+    <div class="card-columns">
         @for (post of listaPosts; track $index) {
-            <section>
-                <h4>{{post.title}}</h4>
-                <img src="{{url + 'post/image/' + post.image}}" width="80px">
-            </section>
+        <article class="card w-100">
+            <div class="card-header">
+                <h3><a routerLink="['/']">{{post.title}}</a></h3>
+            </div>
+            <div class="card-body">
+                @if (post.image) {
+                    <div class="post-image w-100">
+                        <img src="{{url + 'post/image/' + post.image}}" class="w-100">
+                    </div>
+                }
+                @else {
+                    <div class="post-image w-100">
+                        <img src="assets/images/default.jpg" class="w-100">
+                    </div>
+                }
+                
+                <div class="post-buttons d-flex justify-content-around">
+                    <button class="btn">
+                        <span class="material-symbols-outlined">menu_book</span>
+                    </button>
+                    @if (post.user_id == identity.sub) {
+                        <button class="btn">
+                            <span class="material-symbols-outlined">edit</span>
+                        </button>
+                        <button class="btn">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    }
+                </div>
+                
+            </div>
+        </article>
         }
     </div>
 </div>
