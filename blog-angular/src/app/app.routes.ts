@@ -8,6 +8,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { CategoryNewComponent } from './components/category-new/category-new.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { PostNewComponent } from './components/post-new/post-new.component';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: "lista-categorias", component: CategoryListComponent},
     //{ path: "categoria/{id}", component: CategoryDetailsComponent},
     { path: "crear-post", component: PostNewComponent},
+    { path: "entrada/:id", component: PostDetailsComponent},
     { path: "**", component: ErrorComponent }
 ];
 

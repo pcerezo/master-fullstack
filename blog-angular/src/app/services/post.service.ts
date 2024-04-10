@@ -26,6 +26,9 @@ export class PostService {
     }
 
     create(token: string, post: Post): Observable<any> {
+        if (post.image == "") {
+            post.image = null;
+        }
         let json = JSON.stringify(post);
         let params = "json="+json;
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')

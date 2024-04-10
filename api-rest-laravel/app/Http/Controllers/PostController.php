@@ -60,8 +60,7 @@ class PostController extends Controller
            $validate = \Validator::make($params_array, [
                'title' => 'required',
                'content' => 'required',
-               'category_id' => 'required',
-               'image' => 'required'
+               'category_id' => 'required'
            ]);
 
            if ($validate->fails()) {

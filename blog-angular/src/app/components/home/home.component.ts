@@ -19,6 +19,7 @@ export class HomeComponent {
   public url: string;
   public listaPosts: any = [];
   public identity;
+  public token;
 
   constructor(
     private _postService: PostService,
@@ -27,6 +28,7 @@ export class HomeComponent {
     this.page_title = 'Inicio';
     this.url = global.url;
     this.identity = this._userService.getIdentity();
+    this.token = this._userService.getToken();
   }
 
   ngOnInit() {
@@ -38,7 +40,7 @@ export class HomeComponent {
       response => {
         if (response.status == 'success') {
           this.listaPosts = response.posts;
-          console.log(this.listaPosts);
+          console.log(this.listaPosts[1].title);
         }
         else {
           console.error(response);

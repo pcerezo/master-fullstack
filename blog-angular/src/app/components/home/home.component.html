@@ -12,7 +12,7 @@
         @for (post of listaPosts; track $index) {
         <article class="card w-100">
             <div class="card-header">
-                <h3><a routerLink="['/']">{{post.title}}</a></h3>
+                <h3><a [routerLink]="['/entrada', post.id]">{{post.title}}</a></h3>
             </div>
             <div class="card-body">
                 @if (post.image) {
@@ -27,10 +27,10 @@
                 }
                 
                 <div class="post-buttons d-flex justify-content-around">
-                    <button class="btn">
+                    <button class="btn" [routerLink]="['/entrada', post.id]">
                         <span class="material-symbols-outlined">menu_book</span>
                     </button>
-                    @if (post.user_id == identity.sub) {
+                    @if (identity && post.user_id == identity.sub) {
                         <button class="btn">
                             <span class="material-symbols-outlined">edit</span>
                         </button>
