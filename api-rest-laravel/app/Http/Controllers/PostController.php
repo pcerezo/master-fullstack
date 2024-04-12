@@ -32,7 +32,7 @@ class PostController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'posts' => $post
+                'post' => $post
             ];
         }
         else {

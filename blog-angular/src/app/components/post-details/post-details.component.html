@@ -1,1 +1,7 @@
-<p>post-details works!</p>
+<div class="articulo">
+    <div class="titulo">{{post.title}}</div>
+    <div class="categoria">{{post.category.name}}</div>
+    <img src="{{url + 'post/image/' + post.image}}" alt="Portada del Artículo" class="w-100">
+    <div class="autor">{{post.user.name}} {{post.user.surname}}</div>
+    <div class="contenido" [innerText]="post.content"></div>
+</div>
