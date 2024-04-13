@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-md-7 mt-5">
+        <h1>{{page_title}}</h1>
+        <p>Añade nuevo artículo al blog</p>
+
+        <!-- Alertas -->
+        @if (status == 'success') {
+            <div class="alert alert-success col-md-5">
+                Ajustes editados con éxito, <a [routerLink]="['/inicio']">Inicio</a>
+            </div>
+        }
+        @if (status == 'error') {
+            <div class="alert alert-danger col-md-5">
+                Error en la creación de la entrada.
+            </div>
+        }
+
+        <form class="col-md-10 ml-0 pl-0" #postNew="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="tituloInput">Título</label>
+                <input id="tituloInput" class="form-control" type="text" name="title" #title="ngModel" [(ngModel)]="post.title" required>
+                @if (!title.valid && title.touched) {
+                    <small class="invalid-feedback d-block">
+                        El título no es válido
+                    </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="contenidoInput">Contenido</label>
+                <textarea [froalaEditor]="froala_options" id="descripcionInput" class="form-control" type="text" name="content" 
+                    #content="ngModel" [(ngModel)]="post.content" [(froalaModel)]="post.content" required></textarea>
+                @if (!content.valid && content.touched) {
+                    <small class="invalid-feedback d-block">
+                        El contenido no es válido
+                    </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label for="categorySelect">Categorías</label>
+                <select id="categorySelect" class="form-control" name="category_id" #category="ngModel" [(ngModel)]="post.category_id">
+                    @for (category of categories; track $index) {
+                        <option value="{{category.id}}">{{category.name}}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Imagen del artículo</label><br>
+                {{fileName || "Ninguna imagen seleccionada"}}
+                @if (fileName) {
+                    <img src="{{url + 'post/image/' + fileName}}" class="avatar_edit">
+                }
+                @else {
+                    <img src="{{url + 'user/image/' + post.image}}" class="avatar_edit">
+                }
+                <button mat-mini-fab color="primary" class="btn upload-btn"
+                (click)="filePostUpload.click()">
+                    <i>Selecciona imagen del artículo</i>
+                </button>
+            </div>
+
+            <div class="form-group">
+                <!--<label for="imagenInput">Avatar</label>-->
+                <input id="imagenInput" type="file" class="file-input" #filePostUpload #image="ngModel" [(ngModel)]="post.image"
+                    (change)="onFilePostSelected($event)">
+            </div>
+
+            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="postNew.invalid">
+        </form>
+    </div>
+</div>

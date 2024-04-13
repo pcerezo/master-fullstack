@@ -1,7 +1,16 @@
 <div class="articulo">
     <div class="titulo">{{post.title}}</div>
     <div class="categoria">{{post.category.name}}</div>
-    <img src="{{url + 'post/image/' + post.image}}" alt="Portada del Artículo" class="w-100">
+    @if(post.image) {
+        <div id="post-portada" class="row justify-content-center">
+            <img src="{{url + 'post/image/' + post.image}}" width="300px">
+        </div>
+    }
+    @else {
+        <div id="post-portada" class="row justify-content-center">
+            <img src="assets/images/default.jpg" width="300px">
+        </div>
+    }
     <div class="autor">{{post.user.name}} {{post.user.surname}}</div>
     <div class="contenido" [innerText]="post.content"></div>
 </div>

@@ -31,7 +31,7 @@
                         <span class="material-symbols-outlined">menu_book</span>
                     </button>
                     @if (identity && post.user_id == identity.sub) {
-                        <button class="btn">
+                        <button class="btn" [routerLink]="['/editar-post', post.id]">
                             <span class="material-symbols-outlined">edit</span>
                         </button>
                         <button class="btn">

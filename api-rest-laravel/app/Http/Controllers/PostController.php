@@ -100,7 +100,7 @@ class PostController extends Controller
        return response()->json($data, $data['code']);
     }
     
-    public function update($id, Request $request) {
+    /*public function update($id, Request $request) {
         // Recoger los datos
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
@@ -132,8 +132,8 @@ class PostController extends Controller
             else {
                 // Quitar lo que no interesa
                 unset($params_array['id']);
-                unset($params_array['user_id']);
-                unset($params_array['user']);
+                //unset($params_array['user_id']);
+                //unset($params_array['user']);
                 unset($params_array['created_at']);
                 
                 // Se obtiene el post comprobando que sea del usuario
@@ -161,6 +161,58 @@ class PostController extends Controller
         }
         
         return response()->json($default_error, $default_error['code']);
+    }*/
+
+    public function update($id, Request $request){
+        // Recoger datos por post
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+   
+        // Datos para devolver
+        $data = array(
+          'code' => 404,
+          'status' => 'error',
+          'message' => 'Datos enviados incorrectos'
+          );
+   
+        if(!empty($params_array)){
+        // Validar datos
+        $validate = \Validator::make($params_array, [
+          'title' => 'required',
+          'content' => 'required',
+          'category_id' => 'required'
+        ]);
+   
+        if($validate->fails()){
+               $data['errors'] = $validate->errors();
+               return response()->json($data, $data['code']);
+        }
+   
+        // Eliminar lo que no queremos actualizar ya no es necesario
+      //   unset($params_array['id']);
+      //   unset($params_array['user_id']);
+      //   unset($params_array['created_at']);
+      //   unset($params_array['user']);
+   
+   
+        // Actualizar el registro en concreto
+         $post = Post::find($id);
+         $post->title = $params_array['title'];
+         $post->content = $params_array['content'];
+         $post->category_id = $params_array['category_id'];
+         $post->image = $params_array['image'];
+         $post->save();
+   
+         $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'post' => $post,
+                'changes' => $params_array
+         );
+        }
+   
+        // Devolver respuesta
+        return response()->json($data, $data['code']);
     }
     
     public function destroy($id, Request $request) {

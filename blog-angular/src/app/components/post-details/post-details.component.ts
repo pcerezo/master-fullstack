@@ -3,6 +3,7 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post';
 import { ActivatedRoute, Router } from '@angular/router';
 import { global } from '../../services/global';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-post-details',
@@ -10,21 +11,24 @@ import { global } from '../../services/global';
   imports: [],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css',
-  providers: [PostService]
+  providers: [PostService, UserService]
 })
 export class PostDetailsComponent {
   public page_title;
   public post: any;
   public url: string;
+  public token: string | any;
 
   constructor(
     private _postService: PostService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
   ) {
     this.page_title = "Detalles del artículo";
     this.post = this._postService.getBlankPost();
     this.url = global.url;
+    this.token = this._userService.getToken();
     this.getPost();
   }
 
@@ -41,7 +45,7 @@ export class PostDetailsComponent {
           if (response.status == 'success') {
             console.log(response.post.title);
             this.post = response.post;
-            this.post.content = this.limpiarTextoEnriquecido(this.post.content);
+            this.post.content = this._postService.limpiarTextoEnriquecido(this.post.content);
           }
           else {
             this._router.navigate(['inicio']);
@@ -50,9 +54,8 @@ export class PostDetailsComponent {
       );
     })
   }
-
-  limpiarTextoEnriquecido(texto: string): string {
-    return texto.replace(/<[^>]*>/g, '');
-  }
   
+  update() {
+    this._postService.update(this.token, this.post, this.post.id).subscribe();
+  }
 }

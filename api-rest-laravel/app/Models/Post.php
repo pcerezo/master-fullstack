@@ -9,10 +9,12 @@ class Post extends Model
 {
     protected $table = 'posts';
     
+    // Los campos que se pueden modificar de forma masiva
     protected $fillable = [
         'title',
         'content',
-        'category_id'
+        'category_id',
+        'image'
     ];
     
     // Relación de muchos a uno

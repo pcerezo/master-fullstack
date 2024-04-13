@@ -52,4 +52,20 @@ export class PostService {
     getBlankPost(): Post {
         return new Post(0, 0, 0, '', '', null);
     }
+
+    update(token: string, post: Post, id: number): Observable<any> {
+        if (post.image == "") {
+            post.image = null;
+        }
+        let json = JSON.stringify(post);
+        let params = "json="+json;
+
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+
+        return this._http.put(this.url + "post/" + id, params, {headers: headers});
+    }
+
+    limpiarTextoEnriquecido(texto: string): string {
+        return texto.replace(/<[^>]*>/g, '');
+    }
 }
