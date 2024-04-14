@@ -10,6 +10,7 @@ import { CategoryListComponent } from './components/category-list/category-list.
 import { PostNewComponent } from './components/post-new/post-new.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostEditComponent } from './components/post-edit/post-edit.component';
+import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -20,7 +21,7 @@ export const routes: Routes = [
     { path: "ajustes", component: UserSettingsComponent},
     { path: "crear-categoria", component: CategoryNewComponent},
     { path: "lista-categorias", component: CategoryListComponent},
-    //{ path: "categoria/{id}", component: CategoryDetailsComponent},
+    { path: "categoria/:id", component: CategoryDetailComponent},
     { path: "crear-post", component: PostNewComponent},
     { path: "editar-post/:id", component: PostEditComponent},
     { path: "entrada/:id", component: PostDetailsComponent},

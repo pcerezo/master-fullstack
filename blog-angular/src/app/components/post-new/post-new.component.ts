@@ -69,8 +69,12 @@ export class PostNewComponent {
     );
   }
 
-  onFilePostSelected(event: any) {
-    const file: File = event.target.files[0];
+  onFilePostSelected(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    //const file: File = event.target.files[0];
+    const element = event.target as HTMLInputElement;
+    const file:File | null | undefined = element.files?.item(0);
 
     if (file) {
       this._postService.uploadPostImage(file, this.token).subscribe(
@@ -94,7 +98,7 @@ export class PostNewComponent {
 
   onSubmit() {
     console.log(this.post);
-    console.log("Imagen que se sube: " + this.fileName);
+    console.log("Enviando formulario");
     this._postService.create(this.token, this.post).subscribe(
       response => {
         if (response && response.status == 'success') {

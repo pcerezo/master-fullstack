@@ -48,4 +48,12 @@ export class HomeComponent {
       }
     );
   }
+
+  deletePost(id: number) {
+    this._postService.delete(this.token!, id).subscribe(
+      response => {
+        this.listarPosts();
+      }
+    );
+  }
 }

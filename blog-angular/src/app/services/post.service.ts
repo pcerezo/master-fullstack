@@ -68,4 +68,10 @@ export class PostService {
     limpiarTextoEnriquecido(texto: string): string {
         return texto.replace(/<[^>]*>/g, '');
     }
+
+    delete(token: string, id: number): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+
+        return this._http.delete(this.url + "post/" + id, {headers: headers});
+    }
 }

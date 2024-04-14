@@ -6,16 +6,16 @@
         <!-- Alertas -->
         @if (status == 'success') {
             <div class="alert alert-success col-md-5">
-                Ajustes editados con éxito, <a [routerLink]="['/inicio']">Inicio</a>
+                Artículo creado con éxito, <a [routerLink]="['/inicio']">Inicio</a>
             </div>
         }
         @if (status == 'error') {
             <div class="alert alert-danger col-md-5">
-                Error en la creación de la entrada.
+                Error en la creación del artículo.
             </div>
         }
 
-        <form class="col-md-10 ml-0 pl-0" #postNew="ngForm" (ngSubmit)="onSubmit()">
+        <form class="col-md-10 ml-0 pl-0" #postNew="ngForm">
             <div class="form-group">
                 <label for="tituloInput">Título</label>
                 <input id="tituloInput" class="form-control" type="text" name="title" #title="ngModel" [(ngModel)]="post.title" required>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="form-group">
-                <label for="contenidoInput">Contenido</label>
+                <label for="descripcionInput">Contenido</label>
                 <textarea [froalaEditor]="froala_options" id="descripcionInput" class="form-control" type="text" name="content" 
                     #content="ngModel" [(ngModel)]="post.content" [(froalaModel)]="post.content" required></textarea>
                 @if (!content.valid && content.touched) {
@@ -63,11 +63,11 @@
 
             <div class="form-group">
                 <!--<label for="imagenInput">Avatar</label>-->
-                <input id="imagenInput" type="file" class="file-input" #filePostUpload #image="ngModel" [(ngModel)]="post.image"
+                <input id="imagenInput" type="file" class="file-input" name="image" #filePostUpload #image="ngModel" [(ngModel)]="post.image"
                     (change)="onFilePostSelected($event)">
             </div>
 
-            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="postNew.invalid">
+            <input type="submit" value="Guardar" class="btn btn-success" [disabled]="postNew.invalid" (click)="onSubmit()">
         </form>
     </div>
 </div>

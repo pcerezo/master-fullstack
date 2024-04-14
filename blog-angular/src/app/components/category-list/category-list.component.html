@@ -5,7 +5,7 @@
         <ul class="list-group col-md-6">
         @for (category of categories; track $index) {
             <li class="list-group-item list-group-item-action">
-                <a class="nav-link">{{ category.name }}</a>
+                <a class="nav-link" [routerLink]="['/categoria', category.id]">{{ category.name }}</a>
             </li>
         }
         </ul>
