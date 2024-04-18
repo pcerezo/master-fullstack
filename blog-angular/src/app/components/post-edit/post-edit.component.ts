@@ -21,17 +21,18 @@ export class PostEditComponent {
   public page_title: string;
   public fileName: string;
   public url: string;
-  public identity: User;
+  public identity: any;
   public token: any;
   public post: Post;
   public status: any;
   public categories: any;
   public froala_options: Object = {
     charCounterCount: true,
-    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    language: 'es',
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat'],
   };
 
   constructor(
@@ -61,7 +62,6 @@ export class PostEditComponent {
       response => {
         if (response.status == 'success') {
           this.categories = response.categories;
-          console.log("categorías: " + JSON.stringify(this.categories));
         }
       },
       error => {
@@ -104,7 +104,11 @@ export class PostEditComponent {
           if (response.status == 'success') {
             console.log(response.post.title);
             this.post = response.post;
-            this.post.content = this._postService.limpiarTextoEnriquecido(this.post.content);
+            console.log(this.identity);
+            if (this.post.user_id != this.identity.sub) {
+              this._router.navigate(['inicio']);
+            }
+            //this.post.content = this._postService.limpiarTextoEnriquecido(this.post.content);
           }
           else {
             this._router.navigate(['inicio']);

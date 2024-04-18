@@ -12,5 +12,5 @@
         </div>
     }
     <div class="autor">{{post.user.name}} {{post.user.surname}}</div>
-    <div class="contenido" [innerText]="post.content"></div>
+    <div class="contenido" [innerHTML]="post.content"></div>
 </div>

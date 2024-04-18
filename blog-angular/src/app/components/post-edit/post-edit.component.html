@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="contenidoInput">Contenido</label>
                 <textarea [froalaEditor]="froala_options" id="descripcionInput" class="form-control" type="text" name="content" 
-                    #content="ngModel" [(ngModel)]="post.content" [(froalaModel)]="post.content" required></textarea>
+                    #content="ngModel" [(ngModel)]="post.content" required></textarea>
                 @if (!content.valid && content.touched) {
                     <small class="invalid-feedback d-block">
                         El contenido no es válido

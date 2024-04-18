@@ -11,6 +11,7 @@ import { PostNewComponent } from './components/post-new/post-new.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostEditComponent } from './components/post-edit/post-edit.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
+import { identityGuard } from './services/identity.guard';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -18,12 +19,12 @@ export const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "registro", component: RegisterComponent },
     { path: "logout/:sure", component: LoginComponent},
-    { path: "ajustes", component: UserSettingsComponent},
-    { path: "crear-categoria", component: CategoryNewComponent},
+    { path: "ajustes", component: UserSettingsComponent, canActivate: [identityGuard]},
+    { path: "crear-categoria", component: CategoryNewComponent, canActivate: [identityGuard]},
     { path: "lista-categorias", component: CategoryListComponent},
     { path: "categoria/:id", component: CategoryDetailComponent},
-    { path: "crear-post", component: PostNewComponent},
-    { path: "editar-post/:id", component: PostEditComponent},
+    { path: "crear-post", component: PostNewComponent, canActivate: [identityGuard]},
+    { path: "editar-post/:id", component: PostEditComponent, canActivate: [identityGuard]},
     { path: "entrada/:id", component: PostDetailsComponent},
     { path: "**", component: ErrorComponent }
 ];

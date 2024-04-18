@@ -29,6 +29,8 @@ export class PostService {
         if (post.image == "") {
             post.image = null;
         }
+        // se limpia el contenido del texto enriquecido
+        post.content = global.htmlEntities(post.content);
         let json = JSON.stringify(post);
         let params = "json="+json;
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
@@ -57,16 +59,14 @@ export class PostService {
         if (post.image == "") {
             post.image = null;
         }
+        // se limpia el contenido del texto enriquecido
+        post.content = global.htmlEntities(post.content);
         let json = JSON.stringify(post);
         let params = "json="+json;
 
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
 
         return this._http.put(this.url + "post/" + id, params, {headers: headers});
-    }
-
-    limpiarTextoEnriquecido(texto: string): string {
-        return texto.replace(/<[^>]*>/g, '');
     }
 
     delete(token: string, id: number): Observable<any> {

@@ -4,11 +4,12 @@ import { Post } from '../../models/post';
 import { ActivatedRoute, Router } from '@angular/router';
 import { global } from '../../services/global';
 import { UserService } from '../../services/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './post-details.component.html',
   styleUrl: './post-details.component.css',
   providers: [PostService, UserService]
@@ -45,7 +46,6 @@ export class PostDetailsComponent {
           if (response.status == 'success') {
             console.log(response.post.title);
             this.post = response.post;
-            this.post.content = this._postService.limpiarTextoEnriquecido(this.post.content);
           }
           else {
             this._router.navigate(['inicio']);
