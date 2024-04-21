@@ -63,6 +63,10 @@ export class UserSettingsComponent {
         if (response && response.status == 'success') {
           this.status = response.status;
 
+          if (response.old_user) {
+            this.user.id = response.old_user.sub;
+          }
+
           if (response.changes.name) {
             this.user.name = response.changes.name;
           }
@@ -83,8 +87,22 @@ export class UserSettingsComponent {
             this.user.image = response.changes.image;
           }
 
+          console.log(this.user);
+          // Obtengo el token actualizado con los nuevos datos
+          /*this._userService.login(this.user).subscribe(
+            response => {
+              // Token
+              if (response.status != 'error') {
+                this.token = response;
+              }
+            }
+          );*/
+
           this.identity = this.user;
+          this.identity.sub = this.user.id;
+          console.log(this.identity);
           localStorage.setItem('identity', JSON.stringify(this.identity));
+          localStorage.setItem('token', this.token);
         }
         else {
           this.status = 'error';

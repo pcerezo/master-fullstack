@@ -1,0 +1,11 @@
+<div class="profile-container">
+    <div class="row justify-content-center">
+        <img src="{{url + 'user/avatar/' + user.image}}" alt="Foto de perfil" class="profile-image">
+    </div>
+    <div class="profile-info">
+        <h2>{{user.name}} {{user.surname}}</h2>
+        <label>Rol: </label><strong>{{user.role}}</strong><br>
+        <label>Email: </label><a href="mailto:email@example.com">{{user.email}}</a><br>
+        <label>Biografía:</label><p [innerHTML]="user.description"></p><br>
+    </div>
+</div>

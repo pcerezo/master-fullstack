@@ -12,6 +12,7 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
 import { PostEditComponent } from './components/post-edit/post-edit.component';
 import { CategoryDetailComponent } from './components/category-detail/category-detail.component';
 import { identityGuard } from './services/identity.guard';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
     { path: "login", component: LoginComponent },
     { path: "registro", component: RegisterComponent },
     { path: "logout/:sure", component: LoginComponent},
+    { path: "perfil", component: UserProfileComponent, canActivate: [identityGuard]},
     { path: "ajustes", component: UserSettingsComponent, canActivate: [identityGuard]},
     { path: "crear-categoria", component: CategoryNewComponent, canActivate: [identityGuard]},
     { path: "lista-categorias", component: CategoryListComponent},

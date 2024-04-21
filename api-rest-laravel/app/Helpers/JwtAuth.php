@@ -35,6 +35,7 @@ class JwtAuth {
                 'name'      => $user->name,
                 'surname'   => $user->surname,
                 'description' => $user->description,
+                'role'      => $user->role,
                 'image'     => $user->image,
                 'iat'       => time(), // fecha actual de creación del token
                 'exp'       => time() + (7*24*60*60)// tiempo de caducidad

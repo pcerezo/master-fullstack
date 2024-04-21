@@ -72,6 +72,7 @@ export class UserService {
     }
 
     update(token: string, user: User): Observable<any> {
+        user.description = global.htmlEntities(user.description);
         let json = JSON.stringify(user);
         let params = "json="+json;
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
