@@ -1,7 +1,9 @@
 body { font-family: Arial, sans-serif; }
-.profile-container { max-width: 500px; margin: auto; border: 1px solid #ccc; padding: 20px; }
+.profile-container {border: 1px solid #ccc;}
+.profile-data-container { max-width: 500px; margin: auto; padding: 20px; }
 .profile-image { width: 100px; height: 100px; border-radius: 50%; }
 .profile-info { margin-top: 20px; }
 .profile-info h2 { margin: 0; }
 /*.profile-info p { color: #666; }*/
 .profile-info label { color: #666; }
+.user-bio {border: 1px outset #ccc; padding: 10px;}

@@ -90,4 +90,14 @@ export class UserService {
 
         return this._http.post(this.url + "user/upload", formData, {headers: headers});
     }
+
+    getPosts(id: number): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.get(this.url + 'post/user/' + id, {headers: headers});
+    }
+
+    getDetails(id: number): Observable<any> {
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+        return this._http.get(this.url + 'user/details/' + id, {headers: headers});
+    }
 }

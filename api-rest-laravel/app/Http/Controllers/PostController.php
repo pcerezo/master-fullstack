@@ -317,7 +317,7 @@ class PostController extends Controller
         $data = [
             'code' => 200,
             'status' => 'success',
-            'message' => $posts
+            'posts' => $posts
         ];
         return response()->json($data, $data['code']);
     }
