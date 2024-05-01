@@ -4,14 +4,15 @@ import { CategoryService } from '../../services/category.service';
 import { global } from '../../services/global';
 import { UserService } from '../../services/user.service';
 import { PostService } from '../../services/post.service';
+import { PostListComponent } from "../post-list/post-list.component";
 
 @Component({
-  selector: 'app-category-detail',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './category-detail.component.html',
-  styleUrl: './category-detail.component.css',
-  providers: [CategoryService, UserService, PostService]
+    selector: 'app-category-detail',
+    standalone: true,
+    templateUrl: './category-detail.component.html',
+    styleUrl: './category-detail.component.css',
+    providers: [CategoryService, UserService, PostService],
+    imports: [RouterLink, PostListComponent]
 })
 export class CategoryDetailComponent {
   public page_title: string;

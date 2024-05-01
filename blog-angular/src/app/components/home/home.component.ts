@@ -5,14 +5,15 @@ import { Post } from '../../models/post';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
+import { PostListComponent } from "../post-list/post-list.component";
 
 @Component({
-  selector: 'home',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
-  providers: [PostService]
+    selector: 'home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
+    providers: [PostService],
+    imports: [RouterLink, PostListComponent]
 })
 export class HomeComponent {
   public page_title: string;

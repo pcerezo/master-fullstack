@@ -3,14 +3,15 @@ import { UserService } from '../../services/user.service';
 import { global } from '../../services/global';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostService } from '../../services/post.service';
+import { PostListComponent } from '../post-list/post-list.component';
 
 @Component({
-  selector: 'app-user-profile',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css',
-  providers: [UserService, PostService]
+    selector: 'app-user-profile',
+    standalone: true,
+    templateUrl: './user-profile.component.html',
+    styleUrl: './user-profile.component.css',
+    providers: [UserService, PostService],
+    imports: [RouterLink, PostListComponent]
 })
 export class UserProfileComponent {
 

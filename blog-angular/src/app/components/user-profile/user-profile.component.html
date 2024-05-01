@@ -17,66 +17,10 @@
         <div class="container-fluid mt-3">
             <h1 class="text-center">Mis posts</h1>
             <hr>
-            <div class="card-columns">
-                @for (post of listaPosts; track $index) {
-                <article class="card w-100">
-                    <div class="card-header">
-                        <h3><a [routerLink]="['/entrada', post.id]">{{post.title}}</a></h3>
-                    </div>
-                    <div class="card-body">
-                        @if (post.image) {
-                            <div class="post-image w-100">
-                                <img src="{{url + 'post/image/' + post.image}}" class="w-100">
-                            </div>
-                        }
-                        @else {
-                            <div class="post-image w-100">
-                                <img src="assets/images/default.jpg" class="w-100">
-                            </div>
-                        }
-                        
-                        <div class="post-buttons d-flex justify-content-around">
-                            <button class="btn" [routerLink]="['/entrada', post.id]">
-                                <span class="material-symbols-outlined">menu_book</span>
-                            </button>
-                            @if (user && post.user_id == user.sub) {
-                                <button class="btn" [routerLink]="['/editar-post', post.id]">
-                                    <span class="material-symbols-outlined">edit</span>
-                                </button>
-                                <!--<button class="btn" (click)="deletePost(post.id)">
-                                    <span class="material-symbols-outlined">delete</span>
-                                </button> -->
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
-                                    <span class="material-symbols-outlined">delete</span>
-                                </button>
-                                
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar artículo</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>¿Desea eliminar el artículo <strong>{{post.title}}</strong>?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button #cancelarModal type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deletePost(post.id)">Borrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </article>
-                }
-            </div>
+            <post-list
+                [listaPosts]="listaPosts"
+                [identity]="user"
+                [url]="url"></post-list>
         </div>
         }
 </div>
